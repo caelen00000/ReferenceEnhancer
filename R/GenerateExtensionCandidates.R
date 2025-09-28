@@ -44,7 +44,7 @@ GenerateExtensionCandidates <- function(bedtools_loc = NULL){
 
   ## In R: Save a rank ordered list of genes with highest-to-lowest number of intergenic reads within 10kb of its known gene end.
 
-  summary_data = read.table("results.txt", sep = "\t")
+  summary_data = read.table("results.txt", sep = "\t", quote = "")
 
   summary_data = summary_data[summary_data$V23>-10000,] # retain only sequencing reads within 10kb of known gene ends. Change to more or less stringent as desired.
   summary_data = summary_data[summary_data$V23<0,] # retain only sequencing reads within 10kb of known gene ends. Change to more or less stringent as desired.
