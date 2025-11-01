@@ -3,8 +3,19 @@ readthrough_or_premature <- function(upstream_name, downstream_name, upstream_tr
   for(trx_u in 1:length(upstream_trx[[1]])){
     count_u = 0
     for (trx_d in 1:length(downstream_trx[[1]])){
-      x = seq(downstream_trx[[1]][trx_d], downstream_trx[[2]][trx_d]-1)
-      y = seq(upstream_trx[[1]][trx_u], upstream_trx[[2]][trx_u]-1)
+      # Safe sequence generation for downstream transcript
+      if (downstream_trx[[1]][trx_d] <= downstream_trx[[2]][trx_d]-1) {
+        x = seq(downstream_trx[[1]][trx_d], downstream_trx[[2]][trx_d]-1)
+      } else {
+        x = integer(0)  # Empty sequence for invalid coordinates
+      }
+      
+      # Safe sequence generation for upstream transcript
+      if (upstream_trx[[1]][trx_u] <= upstream_trx[[2]][trx_u]-1) {
+        y = seq(upstream_trx[[1]][trx_u], upstream_trx[[2]][trx_u]-1)
+      } else {
+        y = integer(0)  # Empty sequence for invalid coordinates
+      }
 
       if(length(intersect(x,y)) > 0){
         count_u = count_u + 1
@@ -20,8 +31,20 @@ readthrough_or_premature <- function(upstream_name, downstream_name, upstream_tr
   for(trx_d in 1:length(downstream_trx[[1]])){
     count_d = 0
     for(trx_u in 1:length(upstream_trx[[1]])){
-      x = seq(downstream_trx[[1]][trx_d], downstream_trx[[2]][trx_d]-1)
-      y = seq(upstream_trx[[1]][trx_u], upstream_trx[[2]][trx_u]-1)
+      # Safe sequence generation for downstream transcript
+      if (downstream_trx[[1]][trx_d] <= downstream_trx[[2]][trx_d]-1) {
+        x = seq(downstream_trx[[1]][trx_d], downstream_trx[[2]][trx_d]-1)
+      } else {
+        x = integer(0)  # Empty sequence for invalid coordinates
+      }
+      
+      # Safe sequence generation for upstream transcript
+      if (upstream_trx[[1]][trx_u] <= upstream_trx[[2]][trx_u]-1) {
+        y = seq(upstream_trx[[1]][trx_u], upstream_trx[[2]][trx_u]-1)
+      } else {
+        y = integer(0)  # Empty sequence for invalid coordinates
+      }
+      
       if(length(intersect(x,y)) > 0){
         count_d = count_d + 1
       }
